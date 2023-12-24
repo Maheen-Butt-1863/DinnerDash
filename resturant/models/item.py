@@ -1,6 +1,6 @@
 from django.db import models
 from .category import Category
-from django.core.validators import MinValueValidator,MinLengthValidator
+from django.core.validators import MinValueValidator
 
 
 
