@@ -1,23 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-
-<h1>Welcome to the Home Page</h1>
-
-{% if items %}
-    <ul>
-        {% for item in items %}
-            <li>{{ item.title }} - {{ item.description }}</li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No items available.</p>
-{% endif %}
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-lg-12 mb-3" style="width: 250px;"> 
+            <form method="get" action="{% url 'home' %}">
+                <div class="form-group">
+                    <label for="categoryDropdown" style="margin-bottom: 0.5rem; font-weight: bold;">Select Category</label>
+                    <select class="form-control" id="categoryDropdown" name="category_id">
+                        <option value="">All Categories</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {% if selected_category == category.id %}selected{% endif %}>{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Apply Filter</button>
+            </form>
+        </div>
+        <br>
+        <div id="products" class="col-lg-12 mt-4">
+            <div class="row mx-auto" id="product-container">
+                {% for item in items %}
+                    {% if item.is_available %}
+                        <div class="card mx-3 mb-3" style="width: 18rem;">
+                            <img src="{{ item.photo.url }}" alt="{{ item.title }}" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.title }}</h5>
+                                <p class="card-text">Price: {{ item.price }}</p>
+                                <p class="card-text">{{ item.description }}</p>
+                                {% if user.is_staff %}
+                                    <form action="{% url 'item' %}" method="get">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                                        <div class="btn-group" role="group" aria-label="Item Actions">
+                                            <button type="submit" class="btn btn-primary"  style="width: 8rem;">Update</button>
+                                        </div>
+                                    </form>
+                                {% else %}
+                                    <form action="{% url 'cart' %}?item_id={{ item.id }}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                                        <button type="submit" class="btn btn-primary add-to-cart" data-item-id="{{ item.id }}">Add To Cart</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

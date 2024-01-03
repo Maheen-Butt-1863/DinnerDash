@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>Your Shopping Cart</h2>
+        <br>
+        <div class="row">
+            <div class="col-md-8">
+                {% if item_details %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Item</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Actions</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in item_details %}
+                                <tr>
+                                    <td>
+                                        <p>{{ item.name }}</p>
+                                    </td>
+                                    <td>{{ item.price }}</td>
+                                    <td>
+                                        <form action="{% url 'cart' %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="item_id" value="{{ item.item_id }}">
+                                            <input type="number" name="quantity" id="quantity" class="form-control" value="{{ item.quantity }}" min="1">
+                                            <td>
+                                                <button type="submit" name="action" value="update" class="btn btn-outline-primary update-cart" data-item-id="{{ item.item_id }}">Update</button>
+                                                <button type="submit" name="action" value="remove" class="btn btn-outline-danger" data-item-id="{{ item.item_id }}">Remove</button>
+                                            </td>
+                                        </form>
+                                        
+                                    </td>
+                                    <td>{{ item.sub_total }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p>Your cart is empty.</p>
+                {% endif %}
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cart Summary</h5>
+                        <p>Total Items: {{ item_details|length }}</p>
+                        <p>Total Price: {{ total_price }}</p>
+                        {% if user.is_authenticated %}
+                            <form action="{% url 'order_details' %}?total_price={{ total_price }}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+                            </form>
+                        {% else %}
+                            <p>Please <a href="{% url 'login' %}">log in</a> to proceed to checkout.</p>
+                        {% endif %} 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

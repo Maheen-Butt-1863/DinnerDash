@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2 class="mb-4">Item Form</h2>
+    <form method="post" enctype="multipart/form-data" class="border p-4 rounded" action="{% url 'item' %}">  
+        {% csrf_token %}
+        <input type="hidden" name="item_id" value="{{ item_id }}">
+    
+      <div class="mb-3">
+        <label for="{{ form.title.id_for_label }}" class="form-label">Title</label>
+        {{ form.title }}
+      </div>
+      
+      <div class="mb-3">
+        <label for="{{ form.description.id_for_label }}" class="form-label">Description</label>
+        {{ form.description }}
+      </div>
+      
+      <div class="mb-3">
+        <label for="{{ form.price.id_for_label }}" class="form-label">Price</label>
+        {{ form.price }}
+      </div>
+      
+      <div class="mb-3 form-check">
+        {{ form.is_available }}
+        <label class="form-check-label" for="{{ form.is_available.id_for_label }}">Is Available</label>
+      </div>
+      
+      <div class="mb-3">
+        <label for="{{ form.photo.id_for_label }}" class="form-label">Photo</label>
+        {{ form.photo }}
+      </div>
+      
+      <div class="mb-3">
+        <label for="{{ form.categories.id_for_label }}" class="form-label">Categories</label>
+        {{ form.categories }}
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Update Item</button>
+    </form>
+  </div>
+{% endblock %}

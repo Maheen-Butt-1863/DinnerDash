@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if order %}
+    <h2>Order #{{ order.pk }}</h2>
+    <p>Status: {{ order.status }}</p>
+    <p>Date Placed: {{ order.date_placed|date:"F j, Y P" }}</p>
+
+    <h3>Order Items</h3>
+    <ul>
+      {% for order_item in order_items %}
+        <li>
+            <p>{{ order_item.quantity }}</p>
+            <p>{{ order_item.item.price }}</p>
+            - Quantity: {{ order_item.quantity }}
+           
+        </li>
+      {% endfor %}
+    </ul>
+
+    <p>Total Price: ${{ order.order_total }}</p>
+
+    {% if order.status == 'completed' %}
+      <p>Completed: {{ order.completed_timestamp|date:"F j, Y P" }}</p>
+    {% elif order.status == 'cancelled' %}
+      <p>Cancelled: {{ order.cancelled_timestamp|date:"F j, Y P" }}</p>
+    {% endif %}
+
+  {% else %}
+    {% if orders %}
+      <h2>Your Orders</h2>
+      <ul>
+        {% for order in orders %}
+          <li>
+            Order #{{ order.pk }}
+            - <a href="{% url 'order_details' %}?order_pk={{ order.pk }}">View Details</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No previous orders found.</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}
