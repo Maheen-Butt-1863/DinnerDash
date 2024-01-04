@@ -24,17 +24,24 @@ class ItemUpdateView(View):
 
         if item_id is not None and item_id != "None":
             item = get_object_or_404(Item, id=item_id)
-            form_instance = ItemForm(request.POST, instance=item)
-        else:
-            form_instance = ItemForm(request.POST)
+            form_instance = ItemForm(request.POST, request.FILES, instance=item)
 
-        if form_instance.is_valid():
-            form_instance.save()
-            messages.success(request, "Item successfully added/updated.")
-            return render(
-                request, self.template_name, {"form": form_instance, "item_id": item_id}
-            )
+            if form_instance.is_valid():
+                form_instance.save()
+                messages.success(request, "Item successfully updated.")
+                return redirect('home')
+            else:
+                return render(
+                    request, self.template_name, {"form": form_instance, "item_id": item_id}
+                )
         else:
-            return render(
-                request, self.template_name, {"form": form_instance, "item_id": item_id}
-            )
+            form_instance = ItemForm(request.POST, request.FILES)
+
+            if form_instance.is_valid():
+                form_instance.save()
+                messages.success(request, "Item successfully added.")
+                return redirect('home')
+            else:
+                return render(
+                    request, self.template_name, {"form": form_instance, "item_id": item_id}
+                )

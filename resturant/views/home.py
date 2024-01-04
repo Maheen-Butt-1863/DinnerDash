@@ -10,13 +10,24 @@ class HomePageView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         category_id = request.GET.get("category_id")
-        print(category_id)
+        item_id = request.GET.get("item_id")
         if category_id:
             try:
                 category_id = int(category_id)
                 items = Item.objects.filter(categories__id=category_id)
             except ValueError:
                 return render(request, "invalid_category.html")
+        elif item_id:
+            try:
+                item_id = int(item_id)
+                item = Item.objects.get(id=item_id)
+                context = {
+                    "item": item, 
+                }
+                return render(request, "item_details.html", context)
+            except ValueError:
+                return render(request, "invalid_category.html")
+
         else:
             items = Item.objects.all()
 
@@ -27,3 +38,4 @@ class HomePageView(TemplateView):
             "selected_category": category_id,
         }
         return render(request, "home.html", context)
+

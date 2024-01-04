@@ -18,13 +18,10 @@ class Order(models.Model):
     in_process = models.BooleanField(default=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     order_items = models.ManyToManyField(Item, through="OrderItem")
+    action_timestamp = models.DateTimeField(null=True, blank=True)
     order_total = models.DecimalField(
         max_digits=10, decimal_places=2, default=0.0
-    )  # Add this field
-
-    # def save(self, *args, **kwargs) check the logic of this:
-    #     self.order_total = sum(item.sub_total for item in self.order_items.all())
-    #     super().save(*args, **kwargs)
+    ) 
 
     def __str__(self):
         return f"Order #{self.pk} - {self.status}"

@@ -58,7 +58,7 @@ class CartPageView(TemplateView):
 
             cart.refresh_from_db()
 
-            return redirect("cart")
+            return redirect("home")
 
         else:
             return redirect("home")
