@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if user.is_staff %}
+        {% include 'admin_home.html' %}
+    {% else %}
+        {% include 'user_home.html' %}
+    {% endif %}
+{% endblock %}

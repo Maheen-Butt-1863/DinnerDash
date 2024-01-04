@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if order %}
+  <div class="container">
+    <h2>Order #{{ order.pk }}</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <strong><p>Status: {{ order.status }}</p></strong>
+        <p>Date Placed: {{ order.date_placed|date:"F j, Y P" }}</p>
+        <p>User Name: {{user_info.username}}</p>
+        <p>User Email: {{user_info.email}}</p>
+      </div>
+    </div>
+
+    <h3>Order Items</h3>
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>Quantity</th>
+          <th>Item Name</th>
+          <th>Price</th>
+          <th>Sub total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order_item in order_items %}
+          <tr>
+            <td>{{ order_item.quantity }}</td>
+            <td><a href="{% url 'home'%}?item_id={{order_item.item.pk}}">{{ order_item.item.title }}</a></td>
+            <td>${{ order_item.item.price }}</td>
+            <td>${{ order_item.sub_total }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <p class="lead">Total Price: ${{ order.order_total }}</p>
+    {% if order.status == 'completed' %}
+      <p>Completed: {{ order.completed_timestamp|date:"F j, Y P" }}</p>
+    {% elif order.status == 'cancelled' %}
+      <p>Cancelled: {{ order.cancelled_timestamp|date:"F j, Y P" }}</p>
+    {% endif %}
+  </div>
+  {% else %}
+    <div class="container">
+      <div class="container">
+        <form method="get" action="{% url 'admin_order_details' %}">
+          <div class="mb-3">
+            <label for="statusFilter" class="form-label">Filter by Status:</label>
+            <select id="statusFilter" name="status" class="form-select" style="width: 200px;">
+              <option value="" {% if not status_filter %}selected{% endif %}>All</option>
+              <option value="ordered" {% if status_filter == 'ordered' %}selected{% endif %}>Ordered</option>
+              <option value="paid" {% if status_filter == 'paid' %}selected{% endif %}>Paid</option>
+              <option value="cancel" {% if status_filter == 'cancelled' %}selected{% endif %}>Cancelled</option>
+              <option value="completed" {% if status_filter == 'completed' %}selected{% endif %}>Completed</option>
+            </select>
+            <button type="submit" class="btn btn-primary mt-3">Apply Filter</button>
+          </div>
+        </form>
+      {% if orders %}
+        <h2>Your Orders</h2>
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Order #</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+    <tr>
+        <td>{{ order.pk }}</td>
+        <td>{{ order.status }}</td>
+        <td><a href="{% url 'admin_order_details' %}?order_pk={{ order.pk }}">View Details </td>
+        <td>
+            {% if order.status == 'ordered' %}
+                <form action="{% url 'admin_order_details' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_pk" value="{{ order.pk }}">
+                    <button type="submit" name="action" value="cancel" class="btn btn-danger">Cancel</button>
+                    <button type="submit" name="action" value="paid" class="btn btn-primary">Mark As Paid</button>
+                    
+                </form>
+            {% elif order.status == 'paid' %}
+                <form action="{% url 'admin_order_details' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_pk" value="{{ order.pk }}">
+                    <button type="submit" name="action" value="cancel" class="btn btn-danger">Cancel</button>
+                    <button type="submit" name="action" value="completed" class="btn btn-success">Mark as Completed</button>
+                    
+                </form>
+            {% endif %}
+        </td>
+    </tr>
+{% endfor %}
+
+            </tbody>
+        </table>
+      {% else %}
+          <p>No previous orders found.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}
