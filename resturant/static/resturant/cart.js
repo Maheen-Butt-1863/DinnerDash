@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     updateCartButtons.forEach(button => {
-        console.log("update")
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function (event) {
+            event.preventDefault();  // Prevent the form from submitting
             const itemId = button.dataset.itemId;
             const quantity = document.querySelector(`.quantity-input[data-item-id="${itemId}"]`).value;
             updateCart(itemId, quantity);

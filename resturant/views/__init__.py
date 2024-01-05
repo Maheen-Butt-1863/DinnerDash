@@ -4,3 +4,5 @@ from .home import HomePageView
 from .item import ItemUpdateView
 from .order_details import OrderDetailsView
 from .view import SignUpView
+from .logout import CustomLogoutView
+from .login import CustomLoginView

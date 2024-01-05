@@ -1,0 +1,42 @@
+# services are the containers
+services:
+  # web service that'll run our Django app
+  web:
+    # build the image from the Dockerfile in the current directory
+    build: .
+    # run the container on port 8000
+    ports:
+      - "8000:8000"
+    environment:
+    # postgres config
+    - DB_ENGINE=django.db.backends.postgresql_psycopg2
+    - DB_NAME=postgres
+    - DB_USER=postgres
+    - DB_PASSWORD=postgres
+    - DB_HOST=db
+    - DB_PORT=5432
+
+    # cloudinary config
+    - CLOUDINARY_CLOUD_NAME=dqxbl0sux
+    - CLOUDINARY_API_KEY=577211761176852
+    - CLOUDINARY_API_SECRET=7iQ-XEhTxuM4EmS9WU0Y6ox3NKI
+    - CLOUDINARY_URL=cloudinary://577211761176852:7iQ-XEhTxuM4EmS9WU0Y6ox3NKI@dqxbl0sux
+    command: ["python", "/code/manage.py", "runserver", "0.0.0.0:8000"]
+    # volumes allow persisting data
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+  # db service that'll run our postgres database
+  db:
+    # use the official postgres image
+    image: postgres
+    # volumes allow persisting data
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    # set the environment variables
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    container_name: postgres_db

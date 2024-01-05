@@ -29,7 +29,7 @@
                                             <input type="hidden" name="item_id" value="{{ item.item_id }}">
                                             <input type="number" name="quantity" id="quantity" class="form-control" value="{{ item.quantity }}" min="1">
                                             <td>
-                                                <button type="submit" name="action" value="update" class="btn btn-outline-primary update-cart" data-item-id="{{ item.item_id }}">Update</button>
+                                                <button type="submit" name="action" value="update" class="update-cart btn btn-outline-primary" data-item-id="{{ item.item_id }}">Update</button>
                                                 <button type="submit" name="action" value="remove" class="btn btn-outline-danger" data-item-id="{{ item.item_id }}">Remove</button>
                                             </td>
                                         </form>
