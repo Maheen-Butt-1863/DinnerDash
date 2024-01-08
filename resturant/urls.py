@@ -8,7 +8,8 @@ from .views import (
     OrderDetailsView,
     SignUpView,
     CustomLogoutView,
-    CustomLoginView
+    CustomLoginView,
+    CategoryUpdate
 )
 
 urlpatterns = [
@@ -20,6 +21,7 @@ urlpatterns = [
     path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path("item/", ItemUpdateView.as_view(), name="item"),
+    path("category/", CategoryUpdate.as_view(), name="category"),
     path(
         "admin_order_details/",
         AdminOrderDetailsView.as_view(),

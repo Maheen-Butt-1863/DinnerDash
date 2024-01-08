@@ -6,3 +6,4 @@ from .order_details import OrderDetailsView
 from .view import SignUpView
 from .logout import CustomLogoutView
 from .login import CustomLoginView
+from .category import CategoryUpdate
