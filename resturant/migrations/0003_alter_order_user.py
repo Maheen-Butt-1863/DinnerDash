@@ -6,9 +6,7 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("resturant", "0002_rename_orderiems_order_order_items_and_more"),
-    ]
+    dependencies = [("resturant", "0002_rename_orderiems_order_order_items_and_more")]
 
     operations = [
         migrations.AlterField(
@@ -19,5 +17,5 @@ class Migration(migrations.Migration):
                 on_delete=django.db.models.deletion.CASCADE,
                 to=settings.AUTH_USER_MODEL,
             ),
-        ),
+        )
     ]

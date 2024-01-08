@@ -1,8 +1,8 @@
+from cloudinary.models import CloudinaryField
 from django.core.validators import MinValueValidator
 from django.db import models
 
 from .category import Category
-from cloudinary.models import CloudinaryField
 
 
 class Item(models.Model):

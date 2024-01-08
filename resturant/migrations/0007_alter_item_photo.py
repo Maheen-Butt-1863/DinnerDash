@@ -5,9 +5,7 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("resturant", "0006_order_action_timestamp"),
-    ]
+    dependencies = [("resturant", "0006_order_action_timestamp")]
 
     operations = [
         migrations.AlterField(
@@ -20,5 +18,5 @@ class Migration(migrations.Migration):
                 null=True,
                 verbose_name="profile image",
             ),
-        ),
+        )
     ]

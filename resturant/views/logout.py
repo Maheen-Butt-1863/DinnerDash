@@ -1,6 +1,8 @@
 from django.contrib.auth.views import LogoutView
 from django.shortcuts import redirect
-from resturant.models import OrderItem, Order
+
+from resturant.models import Order, OrderItem
+
 
 class CustomLogoutView(LogoutView):
     def dispatch(self, request, *args, **kwargs):

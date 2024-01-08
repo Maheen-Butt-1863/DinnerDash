@@ -19,9 +19,7 @@ class Order(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     order_items = models.ManyToManyField(Item, through="OrderItem")
     action_timestamp = models.DateTimeField(null=True, blank=True)
-    order_total = models.DecimalField(
-        max_digits=10, decimal_places=2, default=0.0
-    ) 
+    order_total = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
 
     def __str__(self):
         return f"Order #{self.pk} - {self.status}"

@@ -29,10 +29,12 @@ class ItemUpdateView(View):
             if form_instance.is_valid():
                 form_instance.save()
                 messages.success(request, "Item successfully updated.")
-                return redirect('home')
+                return render(request, self.template_name, {"form": form_instance})
             else:
                 return render(
-                    request, self.template_name, {"form": form_instance, "item_id": item_id}
+                    request,
+                    self.template_name,
+                    {"form": form_instance, "item_id": item_id},
                 )
         else:
             form_instance = ItemForm(request.POST, request.FILES)
@@ -40,8 +42,10 @@ class ItemUpdateView(View):
             if form_instance.is_valid():
                 form_instance.save()
                 messages.success(request, "Item successfully added.")
-                return redirect('home')
+                return render(request, self.template_name, {"form": form_instance})
             else:
                 return render(
-                    request, self.template_name, {"form": form_instance, "item_id": item_id}
+                    request,
+                    self.template_name,
+                    {"form": form_instance, "item_id": item_id},
                 )

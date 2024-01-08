@@ -22,7 +22,7 @@ from . import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    # path("resturant/", include("django.contrib.auth.urls")), 
+    # path("resturant/", include("django.contrib.auth.urls")),
     path("", include("resturant.urls")),
 ]
 if settings.DEBUG:

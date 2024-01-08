@@ -39,7 +39,7 @@ SECRET_KEY = "django-insecure-7(v(w27k5m1z&elm63m0mq%651up#t!q4fbaonmw48vd6-n)$=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -77,9 +77,9 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-            ],
+            ]
         },
-    },
+    }
 ]
 
 WSGI_APPLICATION = "Dinner_Dash.wsgi.application"
@@ -107,17 +107,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
 
@@ -137,9 +131,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 MEDIA_URL = "/encryption/"
 MEDIA_ROOT = BASE_DIR / "static"
 
@@ -151,4 +143,3 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "resturant.CustomUser"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
-

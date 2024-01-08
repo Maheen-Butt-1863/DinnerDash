@@ -5,9 +5,7 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("resturant", "0004_order_order_total"),
-    ]
+    dependencies = [("resturant", "0004_order_order_total")]
 
     operations = [
         migrations.AlterField(
@@ -16,5 +14,5 @@ class Migration(migrations.Migration):
             field=cloudinary.models.CloudinaryField(
                 blank=True, max_length=255, null=True, verbose_name="profile image"
             ),
-        ),
+        )
     ]

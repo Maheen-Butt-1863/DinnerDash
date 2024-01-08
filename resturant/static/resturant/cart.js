@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
         cart[itemId] = (cart[itemId] || 0) + 1;
         localStorage.setItem('cart', JSON.stringify(cart));
         console.log("Added to cart")
-        alert('Item added to cart!');
     }
 
     function updateCart(itemId, quantity) {

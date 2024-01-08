@@ -4,14 +4,12 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("resturant", "0005_alter_item_photo"),
-    ]
+    dependencies = [("resturant", "0005_alter_item_photo")]
 
     operations = [
         migrations.AddField(
             model_name="order",
             name="action_timestamp",
             field=models.DateTimeField(blank=True, null=True),
-        ),
+        )
     ]

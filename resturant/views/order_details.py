@@ -2,11 +2,11 @@ from decimal import Decimal
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views import View
 
 from resturant.models import Order
-from django.db.models import F
 
 
 class OrderDetailsView(LoginRequiredMixin, View):
@@ -15,7 +15,9 @@ class OrderDetailsView(LoginRequiredMixin, View):
         if "order_pk" in request.GET:
             order_pk = request.GET["order_pk"]
             order = get_object_or_404(Order, user=user, in_process=False, pk=order_pk)
-            order_items = order.orderitem_set.all().annotate(sub_total=F("quantity") * F("item__price"))
+            order_items = order.orderitem_set.all().annotate(
+                sub_total=F("quantity") * F("item__price")
+            )
 
             return render(
                 request, "checkout.html", {"order": order, "order_items": order_items}
