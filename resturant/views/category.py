@@ -23,5 +23,4 @@ class CategoryUpdate(View):
             return render(request, "add_category.html", {"form": form_instance})
 
         else:
-            print(form_instance)
             return render(request, "add_category.html", {"form": form_instance})

@@ -1,7 +1,5 @@
 from django.contrib.auth.views import LoginView
 
-from resturant.forms.update_cart import AddToCartForm
-from resturant.models.item import Item
 from resturant.models.order import Order
 from resturant.models.orderitem import OrderItem
 
@@ -24,7 +22,6 @@ class CustomLoginView(LoginView):
 
             for session_item in session_cart:
                 item_id = session_item["item_id"]
-                quantity = session_item["quantity"]
 
                 order_item, created = OrderItem.objects.get_or_create(
                     order=user_order, item_id=item_id

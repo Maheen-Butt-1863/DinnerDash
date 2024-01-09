@@ -65,7 +65,6 @@ class CartPageView(TemplateView):
 
             if not user:
                 session_cart = request.session.get("session_cart", [])
-                print(session_cart)
                 action = form.cleaned_data.get("action")
 
                 if action == "remove":
