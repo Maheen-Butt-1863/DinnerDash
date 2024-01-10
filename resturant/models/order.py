@@ -1,4 +1,3 @@
-# models.py
 from django.db import models
 
 from .custom_user import CustomUser
@@ -33,3 +32,5 @@ class Order(models.Model):
             user=user, status="ordered", in_process=True
         )
         return cart
+
+EXPORTED_STATUS_CHOICES = STATUS_CHOICES

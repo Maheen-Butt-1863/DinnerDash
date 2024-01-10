@@ -26,10 +26,3 @@ class Item(models.Model):
 
     def __str__(self):
         return f"Item #{self.pk} - {self.title}"
-
-    # def display_photo(self):
-    #     if self.photo:
-    #         return mark_safe(f'<img src="{self.photo.url}" width="50" height="50" />')
-    #     return "No Photo"
-
-    # display_photo.short_description = "Photo"
