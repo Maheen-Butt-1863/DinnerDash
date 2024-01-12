@@ -1,5 +1,7 @@
 import factory
+
 from resturant.models import CustomUser
+
 
 class CustomUserFactory(factory.Factory):
     class Meta:

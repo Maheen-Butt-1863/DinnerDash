@@ -1,7 +1,11 @@
+# factories.py
 import factory
-from resturant.models import Item, Category
+from factory.django import DjangoModelFactory
 
-class ItemFactory(factory.Factory):
+from ..models import Item
+
+
+class ItemFactory(DjangoModelFactory):
     class Meta:
         model = Item
 
@@ -12,9 +16,5 @@ class ItemFactory(factory.Factory):
 
     @factory.post_generation
     def categories(self, create, extracted, **kwargs):
-        if not create:
-            return
-
         if extracted:
-            for category in extracted:
-                self.categories.add(category)
+            self.categories.set(extracted)

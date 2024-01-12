@@ -1,12 +1,9 @@
-import pdb
-
 from django import forms
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
 from resturant.forms.add_category import CategoryAdmin
-from resturant.models import Category
 
 
 class CategoryUpdate(View):
@@ -20,7 +17,7 @@ class CategoryUpdate(View):
         if form_instance.is_valid():
             form_instance.save()
             messages.success(request, "Category successfully added.")
-            return render(request, "add_category.html", {"form": form_instance})
+            return redirect('category')
 
         else:
             return render(request, "add_category.html", {"form": form_instance})

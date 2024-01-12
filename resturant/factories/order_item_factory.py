@@ -1,7 +1,10 @@
 import factory
+
 from resturant.models import OrderItem
+
 from .item_factory import ItemFactory
 from .order_factory import OrderFactory
+
 
 class OrderItemFactory(factory.Factory):
     class Meta:

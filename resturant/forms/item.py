@@ -29,7 +29,7 @@ class ItemForm(forms.ModelForm):
         if description is None or description.strip() == "":
             raise forms.ValidationError({"description": ["Description is required."]})
 
-        if price is not None and price < 0:
+        if price is not None and price <= 0:
             raise forms.ValidationError({"price": ["Price cannot be negative."]})
 
         if not categories:

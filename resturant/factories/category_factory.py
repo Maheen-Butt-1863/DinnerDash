@@ -1,7 +1,11 @@
+# factories.py
 import factory
-from resturant.models import Category
+from factory.django import DjangoModelFactory
 
-class CategoryFactory(factory.Factory):
+from ..models import Category
+
+
+class CategoryFactory(DjangoModelFactory):
     class Meta:
         model = Category
 

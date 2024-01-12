@@ -1,16 +1,8 @@
 from django.urls import path
 
-from .views import (
-    AdminOrderDetailsView,
-    CartPageView,
-    CategoryUpdate,
-    CustomLoginView,
-    CustomLogoutView,
-    HomePageView,
-    ItemUpdateView,
-    OrderDetailsView,
-    SignUpView,
-)
+from .views import (AdminOrderDetailsView, CartPageView, CategoryUpdate,
+                    CustomLoginView, CustomLogoutView, HomePageView,
+                    ItemUpdateView, OrderDetailsView, SignUpView)
 
 urlpatterns = [
     path("", HomePageView.as_view(), name="home"),

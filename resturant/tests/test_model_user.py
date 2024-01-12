@@ -1,6 +1,7 @@
 from django.test import TestCase
-from resturant.models import CustomUser
+
 from resturant.factories.user_factory import CustomUserFactory
+from resturant.models import CustomUser
 
 
 class UserTestModel(TestCase):
