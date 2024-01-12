@@ -30,7 +30,7 @@ class OrderDetailsView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         cart = Order.objects.filter(user=request.user, in_process=True).first()
 
-        total_price_str = request.GET.get("total_price")
+        total_price_str = request.POST.get("total_price")
         if total_price_str:
             total_price = Decimal(total_price_str)
             if total_price > Decimal("0.0"):
@@ -38,7 +38,9 @@ class OrderDetailsView(LoginRequiredMixin, View):
                 cart.in_process = False
                 cart.save()
 
-                return redirect("order_details")
-
-        messages.warning(request, "No items in the cart.")
-        return redirect(reverse("cart"))
+                return redirect(reverse("order_details"))
+            else:
+                return redirect(reverse("cart"))
+        else:
+            messages.warning(request, "No items in the cart.")
+            return redirect("cart")

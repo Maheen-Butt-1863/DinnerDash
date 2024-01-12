@@ -17,7 +17,7 @@ class CategoryUpdate(View):
         if form_instance.is_valid():
             form_instance.save()
             messages.success(request, "Category successfully added.")
-            return redirect('category')
+            return redirect("category")
 
         else:
             return render(request, "add_category.html", {"form": form_instance})

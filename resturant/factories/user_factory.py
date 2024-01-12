@@ -1,14 +1,13 @@
 import factory
-
+from factory.django import DjangoModelFactory
 from resturant.models import CustomUser
 
 
-class CustomUserFactory(factory.Factory):
+class CustomUserFactory(DjangoModelFactory):
     class Meta:
         model = CustomUser
 
-    username = factory.Sequence(lambda n: f'user{n}')
-    email = factory.LazyAttribute(lambda o: f'{o.username}@example.com')
-    display_name = 'Maheen_Butt123'
-    password = factory.PostGenerationMethodCall('set_password', 'password123')
-    
+    username = factory.Sequence(lambda n: f"user{n}")
+    email = factory.LazyAttribute(lambda o: f"{o.username}@example.com")
+    display_name = "Maheen_Butt123"
+    password = factory.PostGenerationMethodCall("set_password", "password123")

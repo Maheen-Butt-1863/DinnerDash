@@ -9,4 +9,4 @@ class CategoryFactory(DjangoModelFactory):
     class Meta:
         model = Category
 
-    name = factory.Sequence(lambda n: f'Category-{n}')
+    name = factory.Sequence(lambda n: f"Category-{n}")
