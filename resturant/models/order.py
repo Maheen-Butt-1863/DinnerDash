@@ -1,15 +1,9 @@
-# models.py
 from django.db import models
+
+from resturant.constants import STATUS_CHOICES
 
 from .custom_user import CustomUser
 from .item import Item
-
-STATUS_CHOICES = [
-    ("ordered", "Ordered"),
-    ("paid", "Paid"),
-    ("cancelled", "Cancelled"),
-    ("done", "Done"),
-]
 
 
 class Order(models.Model):
@@ -33,3 +27,6 @@ class Order(models.Model):
             user=user, status="ordered", in_process=True
         )
         return cart
+
+
+# EXPORTED_STATUS_CHOICES = STATUS_CHOICES
